@@ -416,6 +416,14 @@ function geoFailureText(error) {
   return '今は現在地を測位できませんでした。電波の届く場所で、もう一度「現在地」を押してください。';
 }
 
+// 「最寄り」を押した直後だけ、追従（位置が届くたびに現在地へ寄せる動き）を一時停止する。
+// 最寄りの地点とポップアップ（「ここへ行く」）を押せるように残すため。時間がたてば次の測位から追従に戻る。
+const NEAREST_FOLLOW_PAUSE_MS = 10000;
+let followPausedUntil = 0;
+function followPaused() {
+  return Date.now() < followPausedUntil;
+}
+
 function centerOn(pos) {
   map.setView([pos.lat, pos.lon], Math.max(map.getZoom(), LOCATED_ZOOM));
 }
@@ -429,7 +437,7 @@ function onPosition(position, source) {
   if (first) logGeo('ok', { source, accuracy: Math.round(position.coords.accuracy) });
   if (!userMarker) userMarker = L.marker([pos.lat, pos.lon], { title: '現在地' }).addTo(map);
   else userMarker.setLatLng([pos.lat, pos.lon]);
-  centerOn(pos); // DriveGuideApp と同じく、位置が届くたびに現在地へ寄せる
+  if (!followPaused()) centerOn(pos); // DriveGuideApp と同じく、位置が届くたびに現在地へ寄せる（「最寄り」直後の一時停止中は除く）
   if (first) setGeoStatus('');
   render();
 }
@@ -474,6 +482,7 @@ el.locate.addEventListener('click', () => {
     startGeolocation();
     return;
   }
+  followPausedUntil = 0; // 「最寄り」直後の一時停止中でも、押したらすぐ現在地へ戻す
   if (state.pos) centerOn(state.pos); // 前回の現在地へすぐ寄せ、測位できたら置き換える
   setGeoStatus('現在地を取得しています…');
   logGeo('button');
@@ -545,6 +554,8 @@ function goNearest(pos, note) {
   setGeoStatus(note || '');
   logGeo('nearest-ok', { id: target.item.id, distance: Math.round(target.item.distance), ahead: target.ahead });
   select(target.item.id, true); // 地点へ移動してポップアップを開く（一覧から選んだときと同じ）
+  followPausedUntil = Date.now() + NEAREST_FOLLOW_PAUSE_MS; // この間は測位が届いても現在地へ戻さない
+  logGeo('follow-paused', { ms: NEAREST_FOLLOW_PAUSE_MS });
 }
 
 el.nearest.addEventListener('click', () => {
@@ -583,4 +594,4 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-window.__smk = { dataReady, state, map, geoLog, startGeolocation }; // 動作確認用
+window.__smk = { dataReady, state, map, geoLog, startGeolocation, followPaused }; // 動作確認用

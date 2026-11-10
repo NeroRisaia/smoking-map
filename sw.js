@@ -1,7 +1,7 @@
 'use strict';
 
 // データ更新・画面変更のたびに番号を上げる（全体を入れ替えるため）
-const CACHE = 'smokingmap-v6';
+const CACHE = 'smokingmap-v7';
 const SHELL = [
   './',
   './index.html',
