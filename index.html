@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; object-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#263238">
+  <title>喫煙所マップ</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="ageGate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="gate-box">
+      <h2 id="gateTitle">ご利用の前に</h2>
+      <p class="gate-main">20歳未満の方は利用できません</p>
+      <p class="gate-main">このマップは喫煙をすすめるものではありません</p>
+      <button id="gateOk" type="button">20歳以上です（地図を開く）</button>
+    </div>
+  </div>
+
+  <header>
+    <h1>喫煙所マップ</h1>
+    <nav class="cats" aria-label="絞り込み">
+      <button class="chip" data-filter="paper" aria-pressed="false">紙巻き可</button>
+      <button class="chip" data-filter="heated" aria-pressed="false">加熱式のみ</button>
+      <button class="chip" data-filter="indoor" aria-pressed="false">屋内</button>
+    </nav>
+    <div class="toolbar">
+      <button id="locate" type="button">現在地</button>
+      <button id="nearest" type="button">最寄り</button>
+      <a id="clubjt" class="ext" href="https://www.clubjt.jp/map/" target="_blank" rel="noopener noreferrer">CLUB JTで見る</a>
+      <a class="ext" href="./credits.html">出典</a>
+    </div>
+    <p id="filterNote" hidden></p>
+    <p id="status" role="status">データを読み込んでいます…</p>
+    <p id="geoStatus" role="status" hidden></p>
+  </header>
+
+  <main>
+    <p class="notice">路上喫煙は多くの地域で条例により禁止されています。喫煙は表示された喫煙所の中だけで、各地域のルールに従ってください（路上喫煙禁止区域は地図に表示していません）。</p>
+    <div id="mapWrap">
+      <div id="map"></div>
+      <div id="empty" hidden>この付近に登録地点がありません（データが少ない地域です）</div>
+    </div>
+    <section id="card" hidden>
+      <h2 id="cardName"></h2>
+      <div id="cardBody"></div>
+      <a id="mapsLink" href="#" target="_blank" rel="noopener">Googleマップで案内</a>
+    </section>
+    <section id="list">
+      <h2 id="listTitle">近くの喫煙所</h2>
+      <ul id="items"></ul>
+    </section>
+  </main>
+
+  <script src="./vendor/leaflet/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

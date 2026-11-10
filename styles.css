@@ -1,0 +1,234 @@
+:root {
+  --bg: #f3f5f6;
+  --panel: #ffffff;
+  --ink: #1d2427;
+  --accent: #263238;
+  --line: #d3d9dc;
+  --paper: #0b7a75;
+  --heated: #6a4bb0;
+  --unknown: #5f6b70;
+  --open: #1e8a3c;
+  font-size: 18px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  padding: 12px 14px;
+  background: var(--accent);
+  color: #fff;
+}
+
+h1 { margin: 0 0 10px; font-size: 22px; }
+
+.cats { display: flex; flex-wrap: wrap; gap: 8px; }
+
+button {
+  font-size: 18px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chip[aria-pressed="true"] {
+  background: #ffd24a;
+  border-color: #ffd24a;
+  font-weight: 700;
+}
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+.ext {
+  display: inline-block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+#filterNote { margin: 10px 0 0; font-size: 15px; color: #ffe9a8; }
+#status { margin: 8px 0 0; font-size: 16px; color: #e3e9ec; }
+
+main { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+
+.notice {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fff4d6;
+  border: 1px solid #f0d78a;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+#mapWrap { position: relative; }
+
+#map {
+  height: 52vh;
+  min-height: 260px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #e9eef3;
+}
+
+#empty {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 28px;
+  z-index: 500;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(29, 36, 39, 0.88);
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+}
+
+#card, #list {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+#card h2 { margin: 0 0 8px; font-size: 22px; }
+#list h2 { margin: 0 0 10px; font-size: 20px; }
+
+.info { margin: 0 0 10px; line-height: 1.6; }
+.info dt { font-weight: 700; color: #3c474c; font-size: 15px; }
+.info dd { margin: 0 0 6px; }
+.caution { color: #9a3b00; font-size: 15px; font-weight: 700; margin: 6px 0 10px; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.k0 { background: var(--unknown); }
+.k1 { background: var(--paper); }
+.k2 { background: var(--heated); }
+.open { background: var(--open); }
+.closed { background: #9aa3a7; }
+
+#mapsLink {
+  display: inline-block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+#items { list-style: none; margin: 0; padding: 0; }
+#items li { border-bottom: 1px solid var(--line); }
+#items li button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+#items li.selected { background: #eaf3f2; font-weight: 700; }
+#items li.none { padding: 12px; color: #4a5559; }
+.dist { color: #4a5559; font-size: 16px; }
+
+/* 地図のピン（タバコのマーク） */
+.smk-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.smk-pin svg { width: 20px; height: 20px; display: block; }
+.smk-k0 { background: var(--unknown); }
+.smk-k1 { background: var(--paper); }
+.smk-k2 { background: var(--heated); }
+.smk-open { box-shadow: 0 0 0 3px var(--open), 0 1px 3px rgba(0, 0, 0, 0.45); }
+
+.popup p { margin: 2px 0; }
+.popup .caution { margin: 4px 0 0; font-size: 13px; }
+
+/* 年齢注意 */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 20, 22, 0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.gate-box {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 22px 18px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+.gate-box h2 { margin: 0 0 12px; font-size: 20px; }
+.gate-main { font-size: 19px; font-weight: 700; margin: 0 0 10px; line-height: 1.5; }
+.gate-box button { margin-top: 10px; width: 100%; background: var(--accent); color: #fff; font-weight: 700; }
+
+/* 出典ページ */
+.credits { padding: 14px; max-width: 760px; margin: 0 auto; line-height: 1.7; }
+.credits section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+.credits h2 { margin: 0 0 6px; font-size: 19px; }
+.credits a { color: #0b5f8a; word-break: break-all; }
+.back { color: #fff; }
+
+[hidden] { display: none !important; }
+
+/* ポップアップの経路案内ボタン */
+.popup .popup-go {
+  display: block;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* 現在地の取得状況（件数表示とは別の行） */
+#geoStatus { margin: 6px 0 0; font-size: 16px; color: #e3e9ec; line-height: 1.5; } /* 件数表示と同じ通常の文字色 */
+
+/* 「最寄り」ボタン（DriveGuideApp の #toiletNow と同じ配色: 緑青・白枠・白の太字） */
+#nearest {
+  background: #0b7a75;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: 700;
+}
