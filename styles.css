@@ -100,7 +100,7 @@ main { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 12px;
   text-align: center;
 }
 
-#card, #list {
+#card, #list, #about {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -108,7 +108,9 @@ main { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 12px;
 }
 
 #card h2 { margin: 0 0 8px; font-size: 22px; }
-#list h2 { margin: 0 0 10px; font-size: 20px; }
+#list h2, #about h2 { margin: 0 0 10px; font-size: 20px; }
+#about p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; }
+#about a { color: #0b5f8a; word-break: break-all; }
 
 .info { margin: 0 0 10px; line-height: 1.6; }
 .info dt { font-weight: 700; color: #3c474c; font-size: 15px; }
